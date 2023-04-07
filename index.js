@@ -7,7 +7,7 @@ const app = express();
 app.use(bodyParser.json());
 app.use(cors());
 
-const agenda = [
+let agenda = [
     {
         nombre: "Kemyl",
         apellido: "Fernández",
@@ -45,6 +45,16 @@ const routes = (router) => {
     //Trae los contactos desde esta lista 
     router.get('/listaPropia', async (request, response) => {
         response.json(agenda)
+    })
+
+    router.post('/listaPropia', (request, response) => {
+        const contacto = {
+            nombre: request.body.nombre,
+            apellido: request.body.apellido,
+            telefono: request.body.telefono
+        }
+        agenda.push(contacto);
+        response.send("POST request hacia la lista de contactos");
     })
 };
         
